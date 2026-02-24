@@ -5,8 +5,25 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GuessWho"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="MainWindow" Height="1080" Width="1980">
 
+    <Window.Background>
+        <ImageBrush ImageSource="/assets/bg.png" Stretch="UniformToFill"/>
+    </Window.Background>
+
+    <Grid>
+        <Image HorizontalAlignment="Left" Height="385" Margin="772,0,0,0" VerticalAlignment="Top" Width="468" Source="/assets/baners/selectCharacter.png"/>
+        <Image HorizontalAlignment="Left" Height="378" Margin="664,151,0,0" VerticalAlignment="Top" Width="324" Source="/assets/images/border.png" Stretch="UniformToFill"/>
+        <Image HorizontalAlignment="Left" Height="377" Margin="988,146,0,0" VerticalAlignment="Top" Width="324" Source="/assets/images/border.png" Stretch="UniformToFill"/>
+        <Image HorizontalAlignment="Left" Height="378" Margin="340,151,0,0" VerticalAlignment="Top" Width="324" Source="/assets/images/border.png" Stretch="UniformToFill"/>
+        <Image HorizontalAlignment="Left" Height="377" Margin="16,146,0,0" VerticalAlignment="Top" Width="324" Source="/assets/images/border.png" Stretch="UniformToFill"/>
+        <Image HorizontalAlignment="Left" Height="377" Margin="1312,146,0,0" VerticalAlignment="Top" Width="324" Source="/assets/images/border.png" Stretch="UniformToFill"/>
+        <Image HorizontalAlignment="Left" Height="378" Margin="1641,146,0,0" VerticalAlignment="Top" Width="324" Source="/assets/images/border.png" Stretch="UniformToFill"/>
+        <Image HorizontalAlignment="Left" Height="378" Margin="454,532,0,0" VerticalAlignment="Top" Width="324" Source="/assets/images/border.png" Stretch="UniformToFill"/>
+        <Image HorizontalAlignment="Left" Height="377" Margin="778,527,0,0" VerticalAlignment="Top" Width="324" Source="/assets/images/border.png" Stretch="UniformToFill"/>
+        <Image HorizontalAlignment="Left" Height="378" Margin="130,532,0,0" VerticalAlignment="Top" Width="324" Source="/assets/images/border.png" Stretch="UniformToFill"/>
+        <Image HorizontalAlignment="Left" Height="377" Margin="1102,527,0,0" VerticalAlignment="Top" Width="324" Source="/assets/images/border.png" Stretch="UniformToFill"/>
+        <Image HorizontalAlignment="Left" Height="378" Margin="1431,527,0,0" VerticalAlignment="Top" Width="324" Source="/assets/images/border.png" Stretch="UniformToFill"/>
+        <Image HorizontalAlignment="Left" Height="102" Margin="895,925,0,0" VerticalAlignment="Top" Width="248" Source="/assets/btns/play.png"/>
     </Grid>
 </Window>

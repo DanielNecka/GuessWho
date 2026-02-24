@@ -8,4 +8,20 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="assets\baners\selectCharacter.png" />
+    <None Remove="assets\bg.png" />
+    <None Remove="assets\btns\play.png" />
+    <None Remove="assets\images\border.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="assets\baners\selectCharacter.png" />
+    <Resource Include="assets\bg.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="assets\btns\play.png" />
+    <Resource Include="assets\images\border.png" />
+  </ItemGroup>
+
 </Project>
