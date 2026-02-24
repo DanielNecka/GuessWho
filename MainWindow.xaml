@@ -5,25 +5,32 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GuessWho"
         mc:Ignorable="d"
-        Title="MainWindow" Height="1080" Width="1980">
+        Title="MainWindow" 
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        WindowState="Maximized">
 
     <Window.Background>
         <ImageBrush ImageSource="/assets/bg.png" Stretch="UniformToFill"/>
     </Window.Background>
 
     <Grid>
-        <Image HorizontalAlignment="Left" Height="385" Margin="772,0,0,0" VerticalAlignment="Top" Width="468" Source="/assets/baners/selectCharacter.png"/>
-        <Image HorizontalAlignment="Left" Height="378" Margin="664,151,0,0" VerticalAlignment="Top" Width="324" Source="/assets/images/border.png" Stretch="UniformToFill"/>
-        <Image HorizontalAlignment="Left" Height="377" Margin="988,146,0,0" VerticalAlignment="Top" Width="324" Source="/assets/images/border.png" Stretch="UniformToFill"/>
-        <Image HorizontalAlignment="Left" Height="378" Margin="340,151,0,0" VerticalAlignment="Top" Width="324" Source="/assets/images/border.png" Stretch="UniformToFill"/>
-        <Image HorizontalAlignment="Left" Height="377" Margin="16,146,0,0" VerticalAlignment="Top" Width="324" Source="/assets/images/border.png" Stretch="UniformToFill"/>
-        <Image HorizontalAlignment="Left" Height="377" Margin="1312,146,0,0" VerticalAlignment="Top" Width="324" Source="/assets/images/border.png" Stretch="UniformToFill"/>
-        <Image HorizontalAlignment="Left" Height="378" Margin="1641,146,0,0" VerticalAlignment="Top" Width="324" Source="/assets/images/border.png" Stretch="UniformToFill"/>
-        <Image HorizontalAlignment="Left" Height="378" Margin="454,532,0,0" VerticalAlignment="Top" Width="324" Source="/assets/images/border.png" Stretch="UniformToFill"/>
-        <Image HorizontalAlignment="Left" Height="377" Margin="778,527,0,0" VerticalAlignment="Top" Width="324" Source="/assets/images/border.png" Stretch="UniformToFill"/>
-        <Image HorizontalAlignment="Left" Height="378" Margin="130,532,0,0" VerticalAlignment="Top" Width="324" Source="/assets/images/border.png" Stretch="UniformToFill"/>
-        <Image HorizontalAlignment="Left" Height="377" Margin="1102,527,0,0" VerticalAlignment="Top" Width="324" Source="/assets/images/border.png" Stretch="UniformToFill"/>
-        <Image HorizontalAlignment="Left" Height="378" Margin="1431,527,0,0" VerticalAlignment="Top" Width="324" Source="/assets/images/border.png" Stretch="UniformToFill"/>
-        <Image HorizontalAlignment="Left" Height="102" Margin="895,925,0,0" VerticalAlignment="Top" Width="248" Source="/assets/btns/play.png"/>
+        <Image HorizontalAlignment="Center" Height="254" VerticalAlignment="Center" Width="532" Source="/assets/baners/logo.png" Stretch="Fill" Margin="-38,-1133,0,0"/>
+
+        <Image HorizontalAlignment="Center" Height="150" Margin="0,-702,0,30" VerticalAlignment="Center" Width="468" Source="/assets/baners/selectCharacter.png"/>
+
+        <Image HorizontalAlignment="Center" Height="300" VerticalAlignment="Center" Width="250" Source="/assets/images/border.png" Stretch="UniformToFill" Margin="-1250,-210,0,0"/>
+        <Image HorizontalAlignment="Center" Height="300" VerticalAlignment="Center" Width="250" Source="/assets/images/border.png" Stretch="UniformToFill" Margin="-750,-210,0,0"/>
+        <Image HorizontalAlignment="Center" Height="300" VerticalAlignment="Center" Width="250" Source="/assets/images/border.png" Stretch="UniformToFill" Margin="-250,-210,0,0"/>
+        <Image HorizontalAlignment="Center" Height="300" VerticalAlignment="Center" Width="250" Source="/assets/images/border.png" Stretch="UniformToFill" Margin="250,-210,0,0"/>
+        <Image HorizontalAlignment="Center" Height="300" VerticalAlignment="Center" Width="250" Source="/assets/images/border.png" Stretch="UniformToFill" Margin="750,-210,0,0"/>
+        <Image HorizontalAlignment="Center" Height="300" VerticalAlignment="Center" Width="250" Source="/assets/images/border.png" Stretch="UniformToFill" Margin="1250,-210,0,0"/>
+        <Image HorizontalAlignment="Center" Height="300" VerticalAlignment="Center" Width="250" Source="/assets/images/border.png" Stretch="UniformToFill" Margin="-1010,410,0,0"/>
+        <Image HorizontalAlignment="Center" Height="300" VerticalAlignment="Center" Width="250" Source="/assets/images/border.png" Stretch="UniformToFill" Margin="-500,410,0,0"/>
+        <Image HorizontalAlignment="Center" Height="300" VerticalAlignment="Center" Width="250" Source="/assets/images/border.png" Stretch="UniformToFill" Margin="0,410,0,0"/>
+        <Image HorizontalAlignment="Center" Height="300" VerticalAlignment="Center" Width="250" Source="/assets/images/border.png" Stretch="UniformToFill" Margin="500,410,0,0"/>
+        <Image HorizontalAlignment="Center" Height="300" VerticalAlignment="Center" Width="250" Source="/assets/images/border.png" Stretch="UniformToFill" Margin="1010,410,0,0"/>
+
+        <Image HorizontalAlignment="Center" Height="102" Margin="0,900,0,30" VerticalAlignment="Center" Width="216" Source="/assets/btns/play.png"/>
     </Grid>
 </Window>
