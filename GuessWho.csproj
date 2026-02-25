@@ -16,10 +16,16 @@
     <None Remove="assets\baners\win.png" />
     <None Remove="assets\bg.png" />
     <None Remove="assets\btns\guess.png" />
+    <None Remove="assets\btns\host.png" />
+    <None Remove="assets\btns\klient.png" />
     <None Remove="assets\btns\play.png" />
     <None Remove="assets\btns\playAgain.png" />
     <None Remove="assets\btns\select.png" />
-    <None Remove="assets\images\border.png" />
+    <None Remove="assets\images\frame.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="assets\images\frame.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -32,10 +38,11 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="assets\btns\guess.png" />
+    <Resource Include="assets\btns\host.png" />
+    <Resource Include="assets\btns\klient.png" />
     <Resource Include="assets\btns\play.png" />
     <Resource Include="assets\btns\playAgain.png" />
     <Resource Include="assets\btns\select.png" />
-    <Resource Include="assets\images\border.png" />
   </ItemGroup>
 
 </Project>
