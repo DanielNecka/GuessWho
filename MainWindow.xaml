@@ -18,6 +18,10 @@
 
     <Viewbox>
         <Grid Width="1980" Height="1080">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-750,0,0">
+                <Image Source="/assets/baners/selectCharacter.png" Width="290"/>
+            </StackPanel>
+
             <Grid x:Name="startScreen" Visibility="Collapsed">
                 <Image HorizontalAlignment="Center" Height="140" VerticalAlignment="Center" Width="290" Source="/assets/btns/host.png" Stretch="Fill" Margin="465,0,0,0"/>
 
