@@ -12,6 +12,7 @@
     <None Remove="assets\baners\enemyCharacter.png" />
     <None Remove="assets\baners\logo.png" />
     <None Remove="assets\baners\lose.png" />
+    <None Remove="assets\baners\playerCharacter.png" />
     <None Remove="assets\baners\selectCharacter.png" />
     <None Remove="assets\baners\win.png" />
     <None Remove="assets\bg.png" />
@@ -25,6 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="assets\baners\playerCharacter.png" />
     <Resource Include="assets\images\frame.png" />
   </ItemGroup>
 

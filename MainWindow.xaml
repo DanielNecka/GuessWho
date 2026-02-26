@@ -90,7 +90,7 @@
             </Grid>
 
             <Grid x:Name="endScreen" Visibility="Collapsed">
-                <Image Source="/assets/baners/win.png" Width="400" Margin="0,-850,0,0"/>
+                <Image Source="/assets/baners/win.png" Width="400" Margin="0,-900,0,0"/>
 
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Width="300">
                     <Image Source="/assets/baners/enemyCharacter.png" />
@@ -98,7 +98,7 @@
                     <Image Source="/assets/images/frame.png" Width="300" Margin="0,50,0,0"/>
                 </StackPanel>
 
-                <Image Source="/assets/btns/play.png" Width="400" Margin="0,850,0,0"/>
+                <Image Source="/assets/btns/play.png" Width="400" Margin="0,900,0,0"/>
             </Grid>
         </Grid>
     </Viewbox>
