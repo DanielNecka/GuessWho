@@ -18,7 +18,7 @@
 
     <Viewbox>
         <Grid Width="1980" Height="1080">
-            <Grid x:Name="startScreen" >
+            <Grid x:Name="startScreen">
                 <Image HorizontalAlignment="Center" Height="140" VerticalAlignment="Center" Width="290" Source="/assets/btns/host.png" Stretch="Fill" Margin="465,0,0,0"/>
 
                 <Image HorizontalAlignment="Center" Height="140" VerticalAlignment="Center" Width="290" Source="/assets/btns/klient.png" Stretch="Fill" Margin="-465,0,0,0"/>
@@ -56,7 +56,49 @@
             </Grid>
 
             <Grid x:Name="gameScreen" Visibility="Collapsed">
+                <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,-750,0,0" Orientation="Horizontal">
+                    <Image Source="/assets/baners/playerCharacter.png" Width="290"/>
 
+                    <Image Source="/assets/images/frame.png" Width="228" Height="193.333340358099"/>
+                </StackPanel>
+
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-243,0,0" Orientation="Horizontal">
+                    <Image Source="/assets/images/frame.png" Width="228" Height="223"/>
+                    <Image Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0"/>
+                    <Image Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0"/>
+                    <Image Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0"/>
+                    <Image Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0"/>
+                    <Image Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0"/>
+                    <Image Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0"/>
+                    <Image Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0"/>
+                </StackPanel>
+
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,238,0,0" Orientation="Horizontal">
+                    <Image Source="/assets/images/frame.png" Width="228" Height="223"/>
+                    <Image Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0"/>
+                    <Image Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0"/>
+                    <Image Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0"/>
+                    <Image Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0"/>
+                    <Image Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0"/>
+                    <Image Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0"/>
+                </StackPanel>
+
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,700,0,0" Orientation="Horizontal">
+                    <Image Source="/assets/btns/guess.png" Width="290"/>
+                    <Image Source="/assets/btns/select.png" Width="290" Margin="50,0,0,0"/>
+                </StackPanel>
+            </Grid>
+
+            <Grid x:Name="endScreen" Visibility="Collapsed">
+                <Image Source="/assets/baners/win.png" Width="400" Margin="0,-850,0,0"/>
+
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Width="300">
+                    <Image Source="/assets/baners/enemyCharacter.png" />
+                    
+                    <Image Source="/assets/images/frame.png" Width="300" Margin="0,50,0,0"/>
+                </StackPanel>
+
+                <Image Source="/assets/btns/play.png" Width="400" Margin="0,850,0,0"/>
             </Grid>
         </Grid>
     </Viewbox>

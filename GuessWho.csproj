@@ -30,7 +30,6 @@
 
   <ItemGroup>
     <Resource Include="assets\baners\enemyCharacter.png" />
-    <Resource Include="assets\baners\logo.png" />
     <Resource Include="assets\baners\lose.png" />
     <Resource Include="assets\baners\selectCharacter.png" />
     <Resource Include="assets\baners\win.png" />
@@ -41,7 +40,6 @@
     <Resource Include="assets\btns\host.png" />
     <Resource Include="assets\btns\klient.png" />
     <Resource Include="assets\btns\play.png" />
-    <Resource Include="assets\btns\playAgain.png" />
     <Resource Include="assets\btns\select.png" />
   </ItemGroup>
 
