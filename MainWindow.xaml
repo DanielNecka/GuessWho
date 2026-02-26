@@ -18,17 +18,17 @@
 
     <Viewbox>
         <Grid Width="1980" Height="1080">
-            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-750,0,0">
-                <Image Source="/assets/baners/selectCharacter.png" Width="290"/>
-            </StackPanel>
-
-            <Grid x:Name="startScreen" Visibility="Collapsed">
+            <Grid x:Name="startScreen" >
                 <Image HorizontalAlignment="Center" Height="140" VerticalAlignment="Center" Width="290" Source="/assets/btns/host.png" Stretch="Fill" Margin="465,0,0,0"/>
 
                 <Image HorizontalAlignment="Center" Height="140" VerticalAlignment="Center" Width="290" Source="/assets/btns/klient.png" Stretch="Fill" Margin="-465,0,0,0"/>
             </Grid>
 
-            <Grid x:Name="selectScreen">
+            <Grid x:Name="selectScreen" Visibility="Collapsed">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-750,0,0">
+                    <Image Source="/assets/baners/selectCharacter.png" Width="290"/>
+                </StackPanel>
+
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-243,0,0" Orientation="Horizontal">
                     <Image Source="/assets/images/frame.png" Width="228" Height="223"/>
                     <Image Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0"/>
