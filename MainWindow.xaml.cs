@@ -24,7 +24,7 @@ public partial class MainWindow : Window
 
     private string _myFaceId = string.Empty;
     private bool _gameStarted;
-    private bool _guessMode;
+    private int _selectedGameIndex = -1;
     private readonly bool[] _crossedOut = new bool[15];
 
     private readonly Image[] _selectFaces;
@@ -176,7 +176,7 @@ public partial class MainWindow : Window
     {
         _myFaceId = myFaceId;
         _gameStarted = true;
-        _guessMode = false;
+        _selectedGameIndex = -1;
 
         for (int i = 0; i < _crossedOut.Length; i++)
         {
@@ -194,21 +194,48 @@ public partial class MainWindow : Window
             || img.Tag is not string tag || !int.TryParse(tag, out int index))
             return;
 
-        if (_guessMode)
+        if (_selectedGameIndex >= 0 && _selectedGameIndex < _gameFaces.Length)
         {
-            _guessMode = false;
-            _ = SubmitFinalGuessAsync(index);
+            Image prev = _gameFaces[_selectedGameIndex];
+            prev.RenderTransform = Transform.Identity;
+            prev.Opacity = _crossedOut[_selectedGameIndex] ? 0.5 : 1.0;
+        }
+
+        if (_selectedGameIndex == index)
+        {
+            _selectedGameIndex = -1;
             return;
         }
 
-        _crossedOut[index] = !_crossedOut[index];
-        _gameFaces[index].Opacity = _crossedOut[index] ? 0.5 : 1.0;
+        _selectedGameIndex = index;
+        var scale = new ScaleTransform(1.08, 1.08, img.Width / 2, img.Height / 2);
+        img.RenderTransform = scale;
+        img.Opacity = 1.0;
     }
 
     private void GuessButton_Click(object sender, MouseButtonEventArgs e)
     {
-        if (_gameStarted)
-            _guessMode = true;
+        if (!_gameStarted || _selectedGameIndex < 0)
+            return;
+
+        int guessIndex = _selectedGameIndex;
+        _gameFaces[guessIndex].RenderTransform = Transform.Identity;
+        _gameFaces[guessIndex].Opacity = _crossedOut[guessIndex] ? 0.5 : 1.0;
+        _selectedGameIndex = -1;
+
+        _ = SubmitFinalGuessAsync(guessIndex);
+    }
+
+    private void SelectButton_Click(object sender, MouseButtonEventArgs e)
+    {
+        if (!_gameStarted || _selectedGameIndex < 0)
+            return;
+
+        int idx = _selectedGameIndex;
+        _crossedOut[idx] = !_crossedOut[idx];
+        _gameFaces[idx].Opacity = _crossedOut[idx] ? 0.5 : 1.0;
+        _gameFaces[idx].RenderTransform = Transform.Identity;
+        _selectedGameIndex = -1;
     }
 
     private async Task SubmitFinalGuessAsync(int faceIndex)
