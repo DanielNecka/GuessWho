@@ -91,8 +91,13 @@ public partial class MainWindow : Window
             ShowScreen("select");
         }
         catch (OperationCanceledException) { }
-        catch (Exception)
+        catch (Exception ex)
         {
+            MessageBox.Show(
+                $"Nie udało się połączyć: {ex.Message}\n\n" +
+                $"Sprawdź config.txt — host_ip musi wskazywać IP hosta.\n" +
+                $"Aktualnie: {_config?.HostIp}:{_config?.Port}",
+                "Błąd połączenia", MessageBoxButton.OK, MessageBoxImage.Warning);
             ShowScreen("start");
         }
     }

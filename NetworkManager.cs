@@ -8,7 +8,7 @@ namespace GuessWho;
 
 public sealed class NetworkManager : IDisposable
 {
-    private static readonly TimeSpan _connectTimeout = TimeSpan.FromSeconds(3);
+    private static readonly TimeSpan _connectTimeout = TimeSpan.FromSeconds(15);
 
     private readonly AppConfig _config;
     private readonly JsonSerializerOptions _serializerOptions = new(JsonSerializerDefaults.Web);
