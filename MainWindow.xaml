@@ -18,10 +18,10 @@
 
     <Viewbox>
         <Grid Width="1980" Height="1080">
-            <Grid x:Name="startScreen">
-                <Image HorizontalAlignment="Center" Height="140" VerticalAlignment="Center" Width="290" Source="/assets/btns/host.png" Stretch="Fill" Margin="465,0,0,0"/>
+            <Grid x:Name="startScreen" Visibility="Visible">
+                <Image HorizontalAlignment="Center" Height="140" VerticalAlignment="Center" Width="290" Source="/assets/btns/host.png" Stretch="Fill" Margin="465,0,0,0" MouseLeftButtonDown="HostButton_Click" Cursor="Hand"/>
 
-                <Image HorizontalAlignment="Center" Height="140" VerticalAlignment="Center" Width="290" Source="/assets/btns/klient.png" Stretch="Fill" Margin="-465,0,0,0"/>
+                <Image HorizontalAlignment="Center" Height="140" VerticalAlignment="Center" Width="290" Source="/assets/btns/klient.png" Stretch="Fill" Margin="-465,0,0,0" MouseLeftButtonDown="ClientButton_Click" Cursor="Hand"/>
             </Grid>
 
             <Grid x:Name="selectScreen" Visibility="Collapsed">
@@ -30,28 +30,28 @@
                 </StackPanel>
 
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-243,0,0" Orientation="Horizontal">
-                    <Image Source="/assets/images/frame.png" Width="228" Height="223"/>
-                    <Image Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0"/>
-                    <Image Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0"/>
-                    <Image Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0"/>
-                    <Image Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0"/>
-                    <Image Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0"/>
-                    <Image Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0"/>
-                    <Image Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0"/>
+                    <Image x:Name="sel0" Source="/assets/images/frame.png" Width="228" Height="223" Tag="0" MouseLeftButtonDown="SelectFace_Click" Cursor="Hand"/>
+                    <Image x:Name="sel1" Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0" Tag="1" MouseLeftButtonDown="SelectFace_Click" Cursor="Hand"/>
+                    <Image x:Name="sel2" Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0" Tag="2" MouseLeftButtonDown="SelectFace_Click" Cursor="Hand"/>
+                    <Image x:Name="sel3" Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0" Tag="3" MouseLeftButtonDown="SelectFace_Click" Cursor="Hand"/>
+                    <Image x:Name="sel4" Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0" Tag="4" MouseLeftButtonDown="SelectFace_Click" Cursor="Hand"/>
+                    <Image x:Name="sel5" Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0" Tag="5" MouseLeftButtonDown="SelectFace_Click" Cursor="Hand"/>
+                    <Image x:Name="sel6" Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0" Tag="6" MouseLeftButtonDown="SelectFace_Click" Cursor="Hand"/>
+                    <Image x:Name="sel7" Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0" Tag="7" MouseLeftButtonDown="SelectFace_Click" Cursor="Hand"/>
                 </StackPanel>
 
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,238,0,0" Orientation="Horizontal">
-                    <Image Source="/assets/images/frame.png" Width="228" Height="223"/>
-                    <Image Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0"/>
-                    <Image Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0"/>
-                    <Image Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0"/>
-                    <Image Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0"/>
-                    <Image Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0"/>
-                    <Image Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0"/>
+                    <Image x:Name="sel8" Source="/assets/images/frame.png" Width="228" Height="223" Tag="8" MouseLeftButtonDown="SelectFace_Click" Cursor="Hand"/>
+                    <Image x:Name="sel9" Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0" Tag="9" MouseLeftButtonDown="SelectFace_Click" Cursor="Hand"/>
+                    <Image x:Name="sel10" Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0" Tag="10" MouseLeftButtonDown="SelectFace_Click" Cursor="Hand"/>
+                    <Image x:Name="sel11" Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0" Tag="11" MouseLeftButtonDown="SelectFace_Click" Cursor="Hand"/>
+                    <Image x:Name="sel12" Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0" Tag="12" MouseLeftButtonDown="SelectFace_Click" Cursor="Hand"/>
+                    <Image x:Name="sel13" Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0" Tag="13" MouseLeftButtonDown="SelectFace_Click" Cursor="Hand"/>
+                    <Image x:Name="sel14" Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0" Tag="14" MouseLeftButtonDown="SelectFace_Click" Cursor="Hand"/>
                 </StackPanel>
 
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,700,0,0">
-                    <Image Source="/assets/btns/play.png" Width="290"/>
+                    <Image Source="/assets/btns/play.png" Width="290" MouseLeftButtonDown="PlayButton_Click" Cursor="Hand"/>
                 </StackPanel>
             </Grid>
 
@@ -59,46 +59,46 @@
                 <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,-750,0,0" Orientation="Horizontal">
                     <Image Source="/assets/baners/playerCharacter.png" Width="290"/>
 
-                    <Image Source="/assets/images/frame.png" Width="228" Height="193.333340358099"/>
+                    <Image x:Name="playerFace" Source="/assets/images/frame.png" Width="228" Height="193.333340358099"/>
                 </StackPanel>
 
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-243,0,0" Orientation="Horizontal">
-                    <Image Source="/assets/images/frame.png" Width="228" Height="223"/>
-                    <Image Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0"/>
-                    <Image Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0"/>
-                    <Image Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0"/>
-                    <Image Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0"/>
-                    <Image Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0"/>
-                    <Image Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0"/>
-                    <Image Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0"/>
+                    <Image x:Name="gf0" Source="/assets/images/frame.png" Width="228" Height="223" Tag="0" MouseLeftButtonDown="GameFace_Click" Cursor="Hand"/>
+                    <Image x:Name="gf1" Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0" Tag="1" MouseLeftButtonDown="GameFace_Click" Cursor="Hand"/>
+                    <Image x:Name="gf2" Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0" Tag="2" MouseLeftButtonDown="GameFace_Click" Cursor="Hand"/>
+                    <Image x:Name="gf3" Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0" Tag="3" MouseLeftButtonDown="GameFace_Click" Cursor="Hand"/>
+                    <Image x:Name="gf4" Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0" Tag="4" MouseLeftButtonDown="GameFace_Click" Cursor="Hand"/>
+                    <Image x:Name="gf5" Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0" Tag="5" MouseLeftButtonDown="GameFace_Click" Cursor="Hand"/>
+                    <Image x:Name="gf6" Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0" Tag="6" MouseLeftButtonDown="GameFace_Click" Cursor="Hand"/>
+                    <Image x:Name="gf7" Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0" Tag="7" MouseLeftButtonDown="GameFace_Click" Cursor="Hand"/>
                 </StackPanel>
 
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,238,0,0" Orientation="Horizontal">
-                    <Image Source="/assets/images/frame.png" Width="228" Height="223"/>
-                    <Image Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0"/>
-                    <Image Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0"/>
-                    <Image Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0"/>
-                    <Image Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0"/>
-                    <Image Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0"/>
-                    <Image Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0"/>
+                    <Image x:Name="gf8" Source="/assets/images/frame.png" Width="228" Height="223" Tag="8" MouseLeftButtonDown="GameFace_Click" Cursor="Hand"/>
+                    <Image x:Name="gf9" Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0" Tag="9" MouseLeftButtonDown="GameFace_Click" Cursor="Hand"/>
+                    <Image x:Name="gf10" Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0" Tag="10" MouseLeftButtonDown="GameFace_Click" Cursor="Hand"/>
+                    <Image x:Name="gf11" Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0" Tag="11" MouseLeftButtonDown="GameFace_Click" Cursor="Hand"/>
+                    <Image x:Name="gf12" Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0" Tag="12" MouseLeftButtonDown="GameFace_Click" Cursor="Hand"/>
+                    <Image x:Name="gf13" Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0" Tag="13" MouseLeftButtonDown="GameFace_Click" Cursor="Hand"/>
+                    <Image x:Name="gf14" Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0" Tag="14" MouseLeftButtonDown="GameFace_Click" Cursor="Hand"/>
                 </StackPanel>
 
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,700,0,0" Orientation="Horizontal">
-                    <Image Source="/assets/btns/guess.png" Width="290"/>
+                    <Image Source="/assets/btns/guess.png" Width="290" MouseLeftButtonDown="GuessButton_Click" Cursor="Hand"/>
                     <Image Source="/assets/btns/select.png" Width="290" Margin="50,0,0,0"/>
                 </StackPanel>
             </Grid>
 
             <Grid x:Name="endScreen" Visibility="Collapsed">
-                <Image Source="/assets/baners/win.png" Width="400" Margin="0,-900,0,0"/>
+                <Image x:Name="endBanner" Source="/assets/baners/win.png" Width="400" Margin="0,-900,0,0"/>
 
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Width="300">
                     <Image Source="/assets/baners/enemyCharacter.png" />
-                    
+
                     <Image Source="/assets/images/frame.png" Width="300" Margin="0,50,0,0"/>
                 </StackPanel>
 
-                <Image Source="/assets/btns/play.png" Width="400" Margin="0,900,0,0"/>
+                <Image Source="/assets/btns/play.png" Width="400" Margin="0,900,0,0" MouseLeftButtonDown="PlayAgainButton_Click" Cursor="Hand"/>
             </Grid>
         </Grid>
     </Viewbox>
