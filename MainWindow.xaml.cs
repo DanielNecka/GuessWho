@@ -213,7 +213,15 @@ public partial class MainWindow : Window
         {
             Image prev = _gameFaces[_selectedGameIndex];
             prev.RenderTransform = Transform.Identity;
-            prev.Opacity = _crossedOut[_selectedGameIndex] ? 0.5 : 1.0;
+
+            if (_wronglyGuessed[_selectedGameIndex])
+            {
+                MarkFaceAsWrong(_selectedGameIndex);
+            }
+            else
+            {
+                prev.Opacity = _crossedOut[_selectedGameIndex] ? 0.5 : 1.0;
+            }
         }
 
         if (_selectedGameIndex == index)
