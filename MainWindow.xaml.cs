@@ -384,15 +384,48 @@ public partial class MainWindow : Window
             return;
 
         var wrongFace = _gameFaces[index];
-        wrongFace.Effect = new System.Windows.Media.Effects.DropShadowEffect
+
+        // Apply red tint only to existing (non-transparent) pixels by manipulating pixel data
+        if (wrongFace.Source is BitmapSource originalBitmap)
         {
-            Color = Colors.Red,
-            BlurRadius = 30,
-            ShadowDepth = 0,
-            Opacity = 0.9
-        };
-        wrongFace.Opacity = 0.7;
-        wrongFace.Cursor = Cursors.No; // Change cursor to indicate it's not clickable
+            int width = originalBitmap.PixelWidth;
+            int height = originalBitmap.PixelHeight;
+            int stride = width * 4; // 4 bytes per pixel (BGRA)
+            byte[] pixels = new byte[height * stride];
+
+            // Copy original pixels
+            originalBitmap.CopyPixels(pixels, stride, 0);
+
+            // Apply red tint to non-transparent pixels
+            for (int i = 0; i < pixels.Length; i += 4)
+            {
+                byte alpha = pixels[i + 3];
+                if (alpha > 0) // Only modify non-transparent pixels
+                {
+                    // Apply red overlay: blend with red color
+                    // Original color * (1 - red_alpha) + red * red_alpha
+                    float redAlpha = 0.35f; // Red overlay intensity
+                    pixels[i + 0] = (byte)(pixels[i + 0] * (1 - redAlpha)); // Blue
+                    pixels[i + 1] = (byte)(pixels[i + 1] * (1 - redAlpha)); // Green
+                    pixels[i + 2] = (byte)(pixels[i + 2] * (1 - redAlpha) + 255 * redAlpha); // Red
+                    // Alpha remains unchanged
+                }
+            }
+
+            // Create new bitmap with modified pixels
+            var modifiedBitmap = BitmapSource.Create(
+                width, height,
+                96, 96,
+                PixelFormats.Bgra32,
+                null,
+                pixels,
+                stride);
+
+            wrongFace.Source = modifiedBitmap;
+        }
+
+        wrongFace.Opacity = 0.9;
+        wrongFace.Cursor = Cursors.No;
     }
 
     private void ShowEndScreen(bool won)
