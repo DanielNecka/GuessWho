@@ -27,6 +27,7 @@ public partial class MainWindow : Window
     private bool _gameStarted;
     private int _selectedGameIndex = -1;
     private readonly bool[] _crossedOut = new bool[15];
+    private readonly bool[] _wronglyGuessed = new bool[15];
 
     private readonly Image[] _selectFaces;
     private readonly Image[] _gameFaces;
@@ -234,7 +235,16 @@ public partial class MainWindow : Window
 
         int guessIndex = _selectedGameIndex;
         _gameFaces[guessIndex].RenderTransform = Transform.Identity;
-        _gameFaces[guessIndex].Opacity = _crossedOut[guessIndex] ? 0.5 : 1.0;
+
+        if (_wronglyGuessed[guessIndex])
+        {
+            MarkFaceAsWrong(guessIndex);
+        }
+        else
+        {
+            _gameFaces[guessIndex].Opacity = _crossedOut[guessIndex] ? 0.5 : 1.0;
+        }
+
         _selectedGameIndex = -1;
 
         _ = SubmitFinalGuessAsync(guessIndex);
@@ -247,7 +257,16 @@ public partial class MainWindow : Window
 
         int idx = _selectedGameIndex;
         _crossedOut[idx] = !_crossedOut[idx];
-        _gameFaces[idx].Opacity = _crossedOut[idx] ? 0.5 : 1.0;
+
+        if (_wronglyGuessed[idx])
+        {
+            MarkFaceAsWrong(idx);
+        }
+        else
+        {
+            _gameFaces[idx].Opacity = _crossedOut[idx] ? 0.5 : 1.0;
+        }
+
         _gameFaces[idx].RenderTransform = Transform.Identity;
         _selectedGameIndex = -1;
     }
@@ -335,6 +354,22 @@ public partial class MainWindow : Window
                 break;
             }
         }
+    }
+
+    private void MarkFaceAsWrong(int index)
+    {
+        if (index < 0 || index >= _gameFaces.Length)
+            return;
+
+        var wrongFace = _gameFaces[index];
+        wrongFace.Effect = new System.Windows.Media.Effects.DropShadowEffect
+        {
+            Color = Colors.Red,
+            BlurRadius = 25,
+            ShadowDepth = 0,
+            Opacity = 0.8
+        };
+        wrongFace.Opacity = 0.7;
     }
 
     private void ShowEndScreen(bool won)
