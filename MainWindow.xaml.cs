@@ -23,6 +23,7 @@ public partial class MainWindow : Window
     private string? _clientFaceId;
 
     private string _myFaceId = string.Empty;
+    private string _enemyFaceId = string.Empty;
     private bool _gameStarted;
     private int _selectedGameIndex = -1;
     private readonly bool[] _crossedOut = new bool[15];
@@ -174,12 +175,13 @@ public partial class MainWindow : Window
                 ClientFaceId = _clientFaceId
             });
 
-        StartGame(_hostFaceId);
+        StartGame(_hostFaceId, _clientFaceId);
     }
 
-    private void StartGame(string myFaceId)
+    private void StartGame(string myFaceId, string enemyFaceId)
     {
         _myFaceId = myFaceId;
+        _enemyFaceId = enemyFaceId;
         _gameStarted = true;
         _selectedGameIndex = -1;
 
@@ -188,6 +190,13 @@ public partial class MainWindow : Window
             _crossedOut[i] = false;
             _gameFaces[i].Opacity = 1.0;
             _gameFaces[i].RenderTransform = Transform.Identity;
+        }
+
+        // Set player face image based on selected character
+        if (_selectedCharacterIndex >= 0 && _selectedCharacterIndex < _selectFaces.Length)
+        {
+            var selectedFaceSource = _selectFaces[_selectedCharacterIndex].Source;
+            playerFace.Source = selectedFaceSource;
         }
 
         ShowScreen("game");
@@ -282,7 +291,11 @@ public partial class MainWindow : Window
                     ? payload.HostFaceId
                     : payload.ClientFaceId;
 
-                StartGame(myId);
+                string enemyId = _config.Role == AppRole.Host
+                    ? payload.ClientFaceId
+                    : payload.HostFaceId;
+
+                StartGame(myId, enemyId);
                 break;
             }
             case MessageTypes.FinalGuess:
@@ -329,6 +342,17 @@ public partial class MainWindow : Window
         _gameStarted = false;
         endBanner.Source = new BitmapImage(
             new Uri(won ? "/assets/baners/win.png" : "/assets/baners/lose.png", UriKind.Relative));
+
+        // Show enemy character face
+        if (!string.IsNullOrWhiteSpace(_enemyFaceId) && int.TryParse(_enemyFaceId, out int faceId))
+        {
+            int enemyIndex = faceId - 1; // Face IDs are 1-based, arrays are 0-based
+            if (enemyIndex >= 0 && enemyIndex < _gameFaces.Length)
+            {
+                enemyFace.Source = _gameFaces[enemyIndex].Source;
+            }
+        }
+
         ShowScreen("end");
     }
 
