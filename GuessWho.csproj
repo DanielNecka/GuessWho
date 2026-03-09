@@ -22,11 +22,32 @@
     <None Remove="assets\btns\play.png" />
     <None Remove="assets\btns\playAgain.png" />
     <None Remove="assets\btns\select.png" />
+    <None Remove="assets\images\AngelikaZelek.png" />
+    <None Remove="assets\images\AnnaGrabowska.png" />
+    <None Remove="assets\images\AnnaWozniak.png" />
+    <None Remove="assets\images\BartoszPac.png" />
+    <None Remove="assets\images\DamianRospenowski.png" />
+    <None Remove="assets\images\EwaKuczera.png" />
     <None Remove="assets\images\frame.png" />
+    <None Remove="assets\images\JacekRusin.png" />
+    <None Remove="assets\images\JolantaTargosz.png" />
+    <None Remove="assets\images\KamilWiniarczyk.png" />
+    <None Remove="assets\images\KarolinaKlabis.png" />
+    <None Remove="assets\images\KarolinaSuch.png" />
+    <None Remove="assets\images\MateuszGawlik.png" />
+    <None Remove="assets\images\MateuszSzarek.png" />
+    <None Remove="assets\images\NataliaKoczkodaj.png" />
+    <None Remove="assets\images\PiotrKania.png" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="assets\baners\playerCharacter.png" />
+    <Resource Include="assets\images\AngelikaZelek.png" />
+    <Resource Include="assets\images\AnnaGrabowska.png" />
+    <Resource Include="assets\images\AnnaWozniak.png" />
+    <Resource Include="assets\images\BartoszPac.png" />
+    <Resource Include="assets\images\DamianRospenowski.png" />
+    <Resource Include="assets\images\EwaKuczera.png" />
     <Resource Include="assets\images\frame.png" />
   </ItemGroup>
 
@@ -43,6 +64,15 @@
     <Resource Include="assets\btns\klient.png" />
     <Resource Include="assets\btns\play.png" />
     <Resource Include="assets\btns\select.png" />
+    <Resource Include="assets\images\JacekRusin.png" />
+    <Resource Include="assets\images\JolantaTargosz.png" />
+    <Resource Include="assets\images\KamilWiniarczyk.png" />
+    <Resource Include="assets\images\KarolinaKlabis.png" />
+    <Resource Include="assets\images\KarolinaSuch.png" />
+    <Resource Include="assets\images\MateuszGawlik.png" />
+    <Resource Include="assets\images\MateuszSzarek.png" />
+    <Resource Include="assets\images\NataliaKoczkodaj.png" />
+    <Resource Include="assets\images\PiotrKania.png" />
   </ItemGroup>
 
   <ItemGroup>

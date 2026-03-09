@@ -30,24 +30,24 @@
                 </StackPanel>
 
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-243,0,0" Orientation="Horizontal">
-                    <Image x:Name="sel0" Source="/assets/images/frame.png" Width="228" Height="223" Tag="0" MouseLeftButtonDown="SelectFace_Click" Cursor="Hand"/>
-                    <Image x:Name="sel1" Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0" Tag="1" MouseLeftButtonDown="SelectFace_Click" Cursor="Hand"/>
-                    <Image x:Name="sel2" Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0" Tag="2" MouseLeftButtonDown="SelectFace_Click" Cursor="Hand"/>
-                    <Image x:Name="sel3" Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0" Tag="3" MouseLeftButtonDown="SelectFace_Click" Cursor="Hand"/>
-                    <Image x:Name="sel4" Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0" Tag="4" MouseLeftButtonDown="SelectFace_Click" Cursor="Hand"/>
-                    <Image x:Name="sel5" Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0" Tag="5" MouseLeftButtonDown="SelectFace_Click" Cursor="Hand"/>
-                    <Image x:Name="sel6" Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0" Tag="6" MouseLeftButtonDown="SelectFace_Click" Cursor="Hand"/>
-                    <Image x:Name="sel7" Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0" Tag="7" MouseLeftButtonDown="SelectFace_Click" Cursor="Hand"/>
+                    <Image x:Name="sel0" Source="/assets/images/NataliaKoczkodaj.png" Width="228" Height="223" Tag="0" MouseLeftButtonDown="SelectFace_Click" Cursor="Hand"/>
+                    <Image x:Name="sel1" Source="/assets/images/DamianRospenowski.png" Width="228" Height="223" Margin="20,0,0,0" Tag="1" MouseLeftButtonDown="SelectFace_Click" Cursor="Hand"/>
+                    <Image x:Name="sel2" Source="/assets/images/EwaKuczera.png" Width="228" Height="223" Margin="20,0,0,0" Tag="2" MouseLeftButtonDown="SelectFace_Click" Cursor="Hand"/>
+                    <Image x:Name="sel3" Source="/assets/images/JacekRusin.png" Width="228" Height="223" Margin="20,0,0,0" Tag="3" MouseLeftButtonDown="SelectFace_Click" Cursor="Hand"/>
+                    <Image x:Name="sel4" Source="/assets/images/KarolinaKlabis.png" Width="228" Height="223" Margin="20,0,0,0" Tag="4" MouseLeftButtonDown="SelectFace_Click" Cursor="Hand"/>
+                    <Image x:Name="sel5" Source="/assets/images/KamilWiniarczyk.png" Width="228" Height="223" Margin="20,0,0,0" Tag="5" MouseLeftButtonDown="SelectFace_Click" Cursor="Hand"/>
+                    <Image x:Name="sel6" Source="/assets/images/KarolinaSuch.png" Width="228" Height="223" Margin="20,0,0,0" Tag="6" MouseLeftButtonDown="SelectFace_Click" Cursor="Hand"/>
+                    <Image x:Name="sel7" Source="/assets/images/BartoszPac.png" Width="228" Height="223" Margin="20,0,0,0" Tag="7" MouseLeftButtonDown="SelectFace_Click" Cursor="Hand"/>
                 </StackPanel>
 
-                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,238,0,0" Orientation="Horizontal">
-                    <Image x:Name="sel8" Source="/assets/images/frame.png" Width="228" Height="223" Tag="8" MouseLeftButtonDown="SelectFace_Click" Cursor="Hand"/>
-                    <Image x:Name="sel9" Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0" Tag="9" MouseLeftButtonDown="SelectFace_Click" Cursor="Hand"/>
-                    <Image x:Name="sel10" Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0" Tag="10" MouseLeftButtonDown="SelectFace_Click" Cursor="Hand"/>
-                    <Image x:Name="sel11" Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0" Tag="11" MouseLeftButtonDown="SelectFace_Click" Cursor="Hand"/>
-                    <Image x:Name="sel12" Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0" Tag="12" MouseLeftButtonDown="SelectFace_Click" Cursor="Hand"/>
-                    <Image x:Name="sel13" Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0" Tag="13" MouseLeftButtonDown="SelectFace_Click" Cursor="Hand"/>
-                    <Image x:Name="sel14" Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0" Tag="14" MouseLeftButtonDown="SelectFace_Click" Cursor="Hand"/>
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,238,0,0" Orientation="Horizontal" Cursor="">
+                    <Image x:Name="sel8" Source="/assets/images/AngelikaZelek.png" Width="228" Height="223" Tag="8" MouseLeftButtonDown="SelectFace_Click" Cursor="Hand"/>
+                    <Image x:Name="sel9" Source="/assets/images/MateuszGawlik.png" Width="228" Height="223" Margin="20,0,0,0" Tag="9" MouseLeftButtonDown="SelectFace_Click" Cursor="Hand"/>
+                    <Image x:Name="sel10" Source="/assets/images/AnnaGrabowska.png" Width="228" Height="223" Margin="20,0,0,0" Tag="10" MouseLeftButtonDown="SelectFace_Click" Cursor="Hand"/>
+                    <Image x:Name="sel11" Source="/assets/images/PiotrKania.png" Width="228" Height="223" Margin="20,0,0,0" Tag="11" MouseLeftButtonDown="SelectFace_Click" Cursor="Hand"/>
+                    <Image x:Name="sel12" Source="/assets/images/AnnaWozniak.png" Width="228" Height="223" Margin="20,0,0,0" Tag="12" MouseLeftButtonDown="SelectFace_Click" Cursor="Hand"/>
+                    <Image x:Name="sel13" Source="/assets/images/MateuszSzarek.png" Width="228" Height="223" Margin="20,0,0,0" Tag="13" MouseLeftButtonDown="SelectFace_Click" Cursor="Hand"/>
+                    <Image x:Name="sel14" Source="/assets/images/JolantaTargosz.png" Width="228" Height="223" Margin="20,0,0,0" Tag="14" MouseLeftButtonDown="SelectFace_Click" Cursor="Hand"/>
                 </StackPanel>
 
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,700,0,0">
@@ -63,24 +63,24 @@
                 </StackPanel>
 
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-243,0,0" Orientation="Horizontal">
-                    <Image x:Name="gf0" Source="/assets/images/frame.png" Width="228" Height="223" Tag="0" MouseLeftButtonDown="GameFace_Click" Cursor="Hand"/>
-                    <Image x:Name="gf1" Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0" Tag="1" MouseLeftButtonDown="GameFace_Click" Cursor="Hand"/>
-                    <Image x:Name="gf2" Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0" Tag="2" MouseLeftButtonDown="GameFace_Click" Cursor="Hand"/>
-                    <Image x:Name="gf3" Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0" Tag="3" MouseLeftButtonDown="GameFace_Click" Cursor="Hand"/>
-                    <Image x:Name="gf4" Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0" Tag="4" MouseLeftButtonDown="GameFace_Click" Cursor="Hand"/>
-                    <Image x:Name="gf5" Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0" Tag="5" MouseLeftButtonDown="GameFace_Click" Cursor="Hand"/>
-                    <Image x:Name="gf6" Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0" Tag="6" MouseLeftButtonDown="GameFace_Click" Cursor="Hand"/>
-                    <Image x:Name="gf7" Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0" Tag="7" MouseLeftButtonDown="GameFace_Click" Cursor="Hand"/>
+                    <Image x:Name="gf0" Source="/assets/images/NataliaKoczkodaj.png" Width="228" Height="223" Tag="0" MouseLeftButtonDown="GameFace_Click" Cursor="Hand"/>
+                    <Image x:Name="gf1" Source="/assets/images/DamianRospenowski.png" Width="228" Height="223" Margin="20,0,0,0" Tag="1" MouseLeftButtonDown="GameFace_Click" Cursor="Hand"/>
+                    <Image x:Name="gf2" Source="/assets/images/EwaKuczera.png" Width="228" Height="223" Margin="20,0,0,0" Tag="2" MouseLeftButtonDown="GameFace_Click" Cursor="Hand"/>
+                    <Image x:Name="gf3" Source="/assets/images/JacekRusin.png" Width="228" Height="223" Margin="20,0,0,0" Tag="3" MouseLeftButtonDown="GameFace_Click" Cursor="Hand"/>
+                    <Image x:Name="gf4" Source="/assets/images/KarolinaKlabis.png" Width="228" Height="223" Margin="20,0,0,0" Tag="4" MouseLeftButtonDown="GameFace_Click" Cursor="Hand"/>
+                    <Image x:Name="gf5" Source="/assets/images/KamilWiniarczyk.png" Width="228" Height="223" Margin="20,0,0,0" Tag="5" MouseLeftButtonDown="GameFace_Click" Cursor="Hand"/>
+                    <Image x:Name="gf6" Source="/assets/images/KarolinaSuch.png" Width="228" Height="223" Margin="20,0,0,0" Tag="6" MouseLeftButtonDown="GameFace_Click" Cursor="Hand"/>
+                    <Image x:Name="gf7" Source="/assets/images/BartoszPac.png" Width="228" Height="223" Margin="20,0,0,0" Tag="7" MouseLeftButtonDown="GameFace_Click" Cursor="Hand"/>
                 </StackPanel>
 
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,238,0,0" Orientation="Horizontal">
-                    <Image x:Name="gf8" Source="/assets/images/frame.png" Width="228" Height="223" Tag="8" MouseLeftButtonDown="GameFace_Click" Cursor="Hand"/>
-                    <Image x:Name="gf9" Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0" Tag="9" MouseLeftButtonDown="GameFace_Click" Cursor="Hand"/>
-                    <Image x:Name="gf10" Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0" Tag="10" MouseLeftButtonDown="GameFace_Click" Cursor="Hand"/>
-                    <Image x:Name="gf11" Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0" Tag="11" MouseLeftButtonDown="GameFace_Click" Cursor="Hand"/>
-                    <Image x:Name="gf12" Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0" Tag="12" MouseLeftButtonDown="GameFace_Click" Cursor="Hand"/>
-                    <Image x:Name="gf13" Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0" Tag="13" MouseLeftButtonDown="GameFace_Click" Cursor="Hand"/>
-                    <Image x:Name="gf14" Source="/assets/images/frame.png" Width="228" Height="223" Margin="20,0,0,0" Tag="14" MouseLeftButtonDown="GameFace_Click" Cursor="Hand"/>
+                    <Image x:Name="gf8" Source="/assets/images/AngelikaZelek.png" Width="228" Height="223" Tag="8" MouseLeftButtonDown="GameFace_Click" Cursor="Hand"/>
+                    <Image x:Name="gf9" Source="/assets/images/MateuszGawlik.png" Width="228" Height="223" Margin="20,0,0,0" Tag="9" MouseLeftButtonDown="GameFace_Click" Cursor="Hand"/>
+                    <Image x:Name="gf10" Source="/assets/images/AnnaGrabowska.png" Width="228" Height="223" Margin="20,0,0,0" Tag="10" MouseLeftButtonDown="GameFace_Click" Cursor="Hand"/>
+                    <Image x:Name="gf11" Source="/assets/images/PiotrKania.png" Width="228" Height="223" Margin="20,0,0,0" Tag="11" MouseLeftButtonDown="GameFace_Click" Cursor="Hand"/>
+                    <Image x:Name="gf12" Source="/assets/images/AnnaWozniak.png" Width="228" Height="223" Margin="20,0,0,0" Tag="12" MouseLeftButtonDown="GameFace_Click" Cursor="Hand"/>
+                    <Image x:Name="gf13" Source="/assets/images/MateuszSzarek.png" Width="228" Height="223" Margin="20,0,0,0" Tag="13" MouseLeftButtonDown="GameFace_Click" Cursor="Hand"/>
+                    <Image x:Name="gf14" Source="/assets/images/JolantaTargosz.png" Width="228" Height="223" Margin="20,0,0,0" Tag="14" MouseLeftButtonDown="GameFace_Click" Cursor="Hand"/>
                 </StackPanel>
 
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,700,0,0" Orientation="Horizontal">
