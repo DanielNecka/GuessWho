@@ -27,7 +27,6 @@ public partial class MainWindow : Window
     private bool _gameStarted;
     private int _selectedGameIndex = -1;
     private readonly bool[] _crossedOut = new bool[15];
-    private readonly bool[] _wronglyGuessed = new bool[15];
 
     private readonly Image[] _selectFaces;
     private readonly Image[] _gameFaces;
@@ -213,15 +212,7 @@ public partial class MainWindow : Window
         {
             Image prev = _gameFaces[_selectedGameIndex];
             prev.RenderTransform = Transform.Identity;
-
-            if (_wronglyGuessed[_selectedGameIndex])
-            {
-                MarkFaceAsWrong(_selectedGameIndex);
-            }
-            else
-            {
-                prev.Opacity = _crossedOut[_selectedGameIndex] ? 0.5 : 1.0;
-            }
+            prev.Opacity = _crossedOut[_selectedGameIndex] ? 0.5 : 1.0;
         }
 
         if (_selectedGameIndex == index)
@@ -243,16 +234,7 @@ public partial class MainWindow : Window
 
         int guessIndex = _selectedGameIndex;
         _gameFaces[guessIndex].RenderTransform = Transform.Identity;
-
-        if (_wronglyGuessed[guessIndex])
-        {
-            MarkFaceAsWrong(guessIndex);
-        }
-        else
-        {
-            _gameFaces[guessIndex].Opacity = _crossedOut[guessIndex] ? 0.5 : 1.0;
-        }
-
+        _gameFaces[guessIndex].Opacity = _crossedOut[guessIndex] ? 0.5 : 1.0;
         _selectedGameIndex = -1;
 
         _ = SubmitFinalGuessAsync(guessIndex);
@@ -265,16 +247,7 @@ public partial class MainWindow : Window
 
         int idx = _selectedGameIndex;
         _crossedOut[idx] = !_crossedOut[idx];
-
-        if (_wronglyGuessed[idx])
-        {
-            MarkFaceAsWrong(idx);
-        }
-        else
-        {
-            _gameFaces[idx].Opacity = _crossedOut[idx] ? 0.5 : 1.0;
-        }
-
+        _gameFaces[idx].Opacity = _crossedOut[idx] ? 0.5 : 1.0;
         _gameFaces[idx].RenderTransform = Transform.Identity;
         _selectedGameIndex = -1;
     }
@@ -352,7 +325,23 @@ public partial class MainWindow : Window
                     return;
 
                 if (payload.Correct)
+                {
                     ShowEndScreen(true);
+                }
+                else
+                {
+                    // Mark the wrongly guessed face as crossed out
+                    if (!string.IsNullOrWhiteSpace(payload.GuessedFaceId) 
+                        && int.TryParse(payload.GuessedFaceId, out int faceId))
+                    {
+                        int wrongIndex = faceId - 1; // Face IDs are 1-based, arrays are 0-based
+                        if (wrongIndex >= 0 && wrongIndex < _gameFaces.Length)
+                        {
+                            _crossedOut[wrongIndex] = true;
+                            _gameFaces[wrongIndex].Opacity = 0.5;
+                        }
+                    }
+                }
                 break;
             }
             case MessageTypes.Rematch:
@@ -362,22 +351,6 @@ public partial class MainWindow : Window
                 break;
             }
         }
-    }
-
-    private void MarkFaceAsWrong(int index)
-    {
-        if (index < 0 || index >= _gameFaces.Length)
-            return;
-
-        var wrongFace = _gameFaces[index];
-        wrongFace.Effect = new System.Windows.Media.Effects.DropShadowEffect
-        {
-            Color = Colors.Red,
-            BlurRadius = 25,
-            ShadowDepth = 0,
-            Opacity = 0.8
-        };
-        wrongFace.Opacity = 0.7;
     }
 
     private void ShowEndScreen(bool won)
