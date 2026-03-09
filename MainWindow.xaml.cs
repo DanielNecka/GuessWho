@@ -193,6 +193,7 @@ public partial class MainWindow : Window
             _gameFaces[i].Opacity = 1.0;
             _gameFaces[i].RenderTransform = Transform.Identity;
             _gameFaces[i].Effect = null;
+            _gameFaces[i].Cursor = Cursors.Hand;
         }
 
         // Set player face image based on selected character
@@ -211,11 +212,23 @@ public partial class MainWindow : Window
             || img.Tag is not string tag || !int.TryParse(tag, out int index))
             return;
 
+        // Block clicking on wrongly guessed faces
+        if (_wronglyGuessed[index])
+            return;
+
         if (_selectedGameIndex >= 0 && _selectedGameIndex < _gameFaces.Length)
         {
             Image prev = _gameFaces[_selectedGameIndex];
             prev.RenderTransform = Transform.Identity;
-            prev.Opacity = _crossedOut[_selectedGameIndex] ? 0.5 : 1.0;
+
+            if (_wronglyGuessed[_selectedGameIndex])
+            {
+                MarkFaceAsWrong(_selectedGameIndex);
+            }
+            else
+            {
+                prev.Opacity = _crossedOut[_selectedGameIndex] ? 0.5 : 1.0;
+            }
         }
 
         if (_selectedGameIndex == index)
@@ -379,6 +392,7 @@ public partial class MainWindow : Window
             Opacity = 0.9
         };
         wrongFace.Opacity = 0.7;
+        wrongFace.Cursor = Cursors.No; // Change cursor to indicate it's not clickable
     }
 
     private void ShowEndScreen(bool won)
