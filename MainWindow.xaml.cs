@@ -32,6 +32,7 @@ public partial class MainWindow : Window
     private int _selectedGameIndex = -1;
     private readonly bool[] _crossedOut = new bool[15];
     private readonly bool[] _wronglyGuessed = new bool[15];
+    private bool _isMyTurn;
 
     private readonly Image[] _selectFaces;
     private readonly Image[] _gameFaces;
@@ -351,6 +352,8 @@ public partial class MainWindow : Window
         _enemyFaceId = enemyFaceId;
         _gameStarted = true;
         _selectedGameIndex = -1;
+        _isMyTurn = _config?.Role == AppRole.Host;
+        UpdateTurnBanner();
     }
 
     /// <summary>
@@ -386,7 +389,7 @@ public partial class MainWindow : Window
     /// </summary>
     private void GameFace_Click(object sender, MouseButtonEventArgs e)
     {
-        if (!_gameStarted || !TryGetImageIndex(sender, out int index))
+        if (!_gameStarted || !_isMyTurn || !TryGetImageIndex(sender, out int index))
             return;
 
         if (_wronglyGuessed[index])
@@ -442,7 +445,7 @@ public partial class MainWindow : Window
     /// </summary>
     private void GuessButton_Click(object sender, MouseButtonEventArgs e)
     {
-        if (!_gameStarted || _selectedGameIndex < 0)
+        if (!_gameStarted || !_isMyTurn || _selectedGameIndex < 0)
             return;
 
         int guessIndex = _selectedGameIndex;
@@ -467,7 +470,7 @@ public partial class MainWindow : Window
     /// </summary>
     private void SelectButton_Click(object sender, MouseButtonEventArgs e)
     {
-        if (!_gameStarted || _selectedGameIndex < 0)
+        if (!_gameStarted || !_isMyTurn || _selectedGameIndex < 0)
             return;
 
         int idx = _selectedGameIndex;
@@ -508,6 +511,9 @@ public partial class MainWindow : Window
         await _networkManager.SendAsync(
             MessageTypes.FinalGuess,
             new FinalGuessPayload { GuessedFaceId = _gameManager.Faces[faceIndex].Id });
+
+        _isMyTurn = false;
+        UpdateTurnBanner();
     }
 
     /// <summary>
@@ -604,7 +610,14 @@ public partial class MainWindow : Window
             });
 
         if (correct)
+        {
             ShowEndScreen(false);
+        }
+        else
+        {
+            _isMyTurn = true;
+            UpdateTurnBanner();
+        }
     }
 
     /// <summary>
@@ -773,6 +786,110 @@ public partial class MainWindow : Window
     /// <summary>
     /// Obsługuje zamknięcie okna - czyści połączenie sieciowe i zasoby.
     /// </summary>
+    /// <summary>
+    /// Aktualizuje baner pokazujący czyja jest tura.
+    /// </summary>
+    private void UpdateTurnBanner()
+    {
+        if (!_gameStarted)
+            return;
+
+        string bannerPath = _isMyTurn 
+            ? "/assets/baners/playerTurn.png" 
+            : "/assets/baners/enemyTurn.png";
+
+        var turnBanner = FindName("turnBanner") as Image;
+        if (turnBanner != null)
+        {
+            turnBanner.Source = new BitmapImage(new Uri(bannerPath, UriKind.Relative));
+        }
+
+        UpdateGameControls();
+    }
+
+    /// <summary>
+    /// Aktualizuje stan kontrolek gry w zależności od tury.
+    /// </summary>
+    private void UpdateGameControls()
+    {
+        if (_isMyTurn)
+        {
+            EnableGameControls();
+        }
+        else
+        {
+            DisableGameControls();
+        }
+    }
+
+    /// <summary>
+    /// Włącza kontrolki gry - pozwala na interakcję.
+    /// </summary>
+    private void EnableGameControls()
+    {
+        foreach (var face in _gameFaces)
+        {
+            int index = Array.IndexOf(_gameFaces, face);
+            if (!_wronglyGuessed[index])
+            {
+                face.Cursor = Cursors.Hand;
+                face.Opacity = _crossedOut[index] ? 0.5 : 1.0;
+            }
+        }
+
+        var guessButton = FindName("guessButton") as Image;
+        var selectButton = FindName("selectButton") as Image;
+
+        if (guessButton != null)
+        {
+            guessButton.Cursor = Cursors.Hand;
+            guessButton.Opacity = 1.0;
+        }
+
+        if (selectButton != null)
+        {
+            selectButton.Cursor = Cursors.Hand;
+            selectButton.Opacity = 1.0;
+        }
+    }
+
+    /// <summary>
+    /// Wyłącza kontrolki gry - blokuje interakcję.
+    /// </summary>
+    private void DisableGameControls()
+    {
+        if (_selectedGameIndex >= 0)
+        {
+            _gameFaces[_selectedGameIndex].RenderTransform = Transform.Identity;
+            _selectedGameIndex = -1;
+        }
+
+        foreach (var face in _gameFaces)
+        {
+            int index = Array.IndexOf(_gameFaces, face);
+            if (!_wronglyGuessed[index])
+            {
+                face.Cursor = Cursors.No;
+                face.Opacity = _crossedOut[index] ? 0.3 : 0.6;
+            }
+        }
+
+        var guessButton = FindName("guessButton") as Image;
+        var selectButton = FindName("selectButton") as Image;
+
+        if (guessButton != null)
+        {
+            guessButton.Cursor = Cursors.No;
+            guessButton.Opacity = 0.5;
+        }
+
+        if (selectButton != null)
+        {
+            selectButton.Cursor = Cursors.No;
+            selectButton.Opacity = 0.5;
+        }
+    }
+
     protected override void OnClosed(EventArgs e)
     {
         _connectCts?.Cancel();
