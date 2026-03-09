@@ -338,6 +338,7 @@ public partial class MainWindow : Window
         InitializeGameState(myFaceId, enemyFaceId);
         ResetGameFaces();
         SetPlayerFaceImage();
+        UpdateTurnBanner();
         ShowScreen("game");
     }
 
@@ -353,7 +354,6 @@ public partial class MainWindow : Window
         _gameStarted = true;
         _selectedGameIndex = -1;
         _isMyTurn = _config?.Role == AppRole.Host;
-        UpdateTurnBanner();
     }
 
     /// <summary>
@@ -368,7 +368,6 @@ public partial class MainWindow : Window
             _gameFaces[i].Opacity = 1.0;
             _gameFaces[i].RenderTransform = Transform.Identity;
             _gameFaces[i].Effect = null;
-            _gameFaces[i].Cursor = Cursors.Hand;
         }
     }
 
@@ -827,13 +826,12 @@ public partial class MainWindow : Window
     /// </summary>
     private void EnableGameControls()
     {
-        foreach (var face in _gameFaces)
+        for (int i = 0; i < _gameFaces.Length; i++)
         {
-            int index = Array.IndexOf(_gameFaces, face);
-            if (!_wronglyGuessed[index])
+            if (!_wronglyGuessed[i])
             {
-                face.Cursor = Cursors.Hand;
-                face.Opacity = _crossedOut[index] ? 0.5 : 1.0;
+                _gameFaces[i].Cursor = Cursors.Hand;
+                _gameFaces[i].Opacity = _crossedOut[i] ? 0.5 : 1.0;
             }
         }
 
@@ -858,19 +856,18 @@ public partial class MainWindow : Window
     /// </summary>
     private void DisableGameControls()
     {
-        if (_selectedGameIndex >= 0)
+        if (_selectedGameIndex >= 0 && _selectedGameIndex < _gameFaces.Length)
         {
             _gameFaces[_selectedGameIndex].RenderTransform = Transform.Identity;
             _selectedGameIndex = -1;
         }
 
-        foreach (var face in _gameFaces)
+        for (int i = 0; i < _gameFaces.Length; i++)
         {
-            int index = Array.IndexOf(_gameFaces, face);
-            if (!_wronglyGuessed[index])
+            if (!_wronglyGuessed[i])
             {
-                face.Cursor = Cursors.No;
-                face.Opacity = _crossedOut[index] ? 0.3 : 0.6;
+                _gameFaces[i].Cursor = Cursors.No;
+                _gameFaces[i].Opacity = _crossedOut[i] ? 0.3 : 0.6;
             }
         }
 
