@@ -1,64 +1,97 @@
-GuessWho
+# GuessWho
 
-A simple desktop application project built with C# and WPF (.NET).
+A networked **"Guess Who?"** party game for two players, built with WPF (.NET 10).
 
-This repository currently contains the foundational structure of a WPF application intended to become a "Guess Who" style game.
+One player hosts the session, the other joins as a client. Each player is randomly assigned a character — the goal is to guess the opponent's character.
 
-📌 Project Description
+The application is distributed as a **standalone** (self-contained) executable — no .NET installation required on the user's machine.
 
-GuessWho is a Windows desktop application created using Windows Presentation Foundation (WPF) in C#.
+---
 
-At its current stage, the project provides:
+## 📌 How It Works
 
-The base WPF application structure
+1. **Start screen** — the player chooses the role of **Host** or **Client**.
+2. **Connecting** — the host starts a TCP server and broadcasts its presence on the local network via UDP. The client automatically discovers the host and connects — **the IP address is detected automatically**, no manual input needed.
+3. **Character selection** — once connected, both players see a grid of 15 characters. Each player clicks a face and confirms their choice.
+4. **Game start** — the host randomly assigns characters so that each player gets a different one to guess. The assignments are sent over the network.
+5. **Gameplay** — players take turns:
+   - They can **cross out** characters (left-click to toggle).
+   - When confident, they click the **Guess** button and pick the opponent's character.
+6. **Result** — after a guess, the end screen is shown (win/loss) with an option to **rematch**, which resets the game without disconnecting.
 
-A main window definition
+---
 
-Standard .NET project configuration
+## 🔌 Networking & Host Discovery
 
-It serves as a starting template for further development of a "Guess Who" game.
+The application uses **automatic host discovery on the local network** (UDP broadcast on port 5001). This means:
 
-🛠 Technologies Used
+- The host **does not need to share** their IP with the other player.
+- The client **finds the host automatically** — the IP address adjusts on its own.
+- If discovery fails, the client falls back to the address in `config.txt`, and ultimately tries `127.0.0.1` (localhost).
 
-C#
+---
 
-.NET
+## 🪵 Logs — Debug Window (F12)
 
-WPF (Windows Presentation Foundation)
+During the game, press **F12** to open/hide the **log window** — it displays application events in real time (network connections, character selections, guess results, restarts).
 
-Visual Studio
+| Shortcut | Action |
+|----------|--------|
+| **F12** | Show / hide log window |
 
-📁 Project Structure
-GuessWho/
-│
-├── GuessWho.csproj        # .NET project file
-├── MainWindow.xaml        # UI layout definition
-├── MainWindow.xaml.cs     # Code-behind for main window
-├── App.xaml               # Application configuration
-├── App.xaml.cs            # Application startup logic
-└── GuessWho.sln           # Visual Studio solution file
-Key Components
+The log window is always on top (`Topmost`) and does not steal focus — you can use it without interrupting the game.
 
-MainWindow.xaml – Defines the graphical user interface.
+---
 
-MainWindow.xaml.cs – Contains the logic associated with the main window.
+## ▶️ How to Run
 
-InitializeComponent() – Loads and initializes UI components defined in XAML.
+### Standalone version (recommended)
 
-▶️ How to Run
+1. Download the installer or published application folder for your architecture (`win-x64`, `win-x86`, or `win-arm64`).
+2. Run `GuessWho.exe` — no .NET installation required.
 
-Open GuessWho.sln in Visual Studio.
+### Playing over LAN
 
-Make sure the .NET Desktop Development workload is installed.
+1. Launch the application on **two computers** in the same network (or twice on the same machine).
+2. On the first one, choose **Host** — the server will start listening and broadcasting its presence.
+3. On the second one, choose **Client** — the application will automatically find the host.
+4. Once connected, both players select their characters and the game begins.
 
-Press F5 to run with debugging
-or
-Ctrl + F5 to run without debugging.
+### Building from Source
 
-Requirements
+1. Open `GuessWho.slnx` in **Visual Studio 2022** or later.
+2. Make sure the **.NET Desktop Development** workload and **.NET 10 SDK** are installed.
+3. Press **F5** (with debugging) or **Ctrl + F5** (without).
 
-Windows OS
+### Publishing Standalone
 
-Visual Studio 2022 or newer
+```powershell
+.\publish-all.ps1
+```
 
-Compatible .NET SDK version (as specified in the .csproj file)
+The script publishes a self-contained `.exe` for x64, x86, and arm64 architectures to `bin\publish\`, and optionally builds Inno Setup installers.
+
+---
+
+## ⚙️ Configuration
+
+`config.txt` file (next to the `.exe`):
+
+```
+host_ip=127.0.0.1
+port=5000
+```
+
+| Key | Description | Default |
+|-----|-------------|---------|
+| `host_ip` | Host IP address (fallback when auto-detection fails) | `127.0.0.1` |
+| `port` | TCP connection port | `5000` |
+
+> In most cases **you don't need to change** these values — UDP auto-detection resolves the IP and port automatically.
+
+---
+
+## 📋 Requirements
+
+- Windows 10 / 11
+- The standalone version has no additional dependencies

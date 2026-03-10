@@ -1,5 +1,2 @@
-# Network settings
-# host_ip = IP of the HOST machine (change on the CLIENT PC)
-# Use 127.0.0.1 only when both instances run on the same PC
 host_ip=127.0.0.1
 port=5000
