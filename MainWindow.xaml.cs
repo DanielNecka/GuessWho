@@ -361,6 +361,14 @@ public partial class MainWindow : Window
     /// </summary>
     private void ResetGameFaces()
     {
+        string[] faceNames =
+        [
+            "NataliaKoczkodaj", "DamianRospenowski", "EwaKuczera", "JacekRusin",
+            "KarolinaKlabis", "KamilWiniarczyk", "KarolinaSuch", "BartoszPac",
+            "AngelikaZelek", "MateuszGawlik", "AnnaGrabowska", "PiotrKania",
+            "AnnaWozniak", "MateuszSzarek", "JolantaTargosz"
+        ];
+
         for (int i = 0; i < _crossedOut.Length; i++)
         {
             _crossedOut[i] = false;
@@ -368,6 +376,9 @@ public partial class MainWindow : Window
             _gameFaces[i].Opacity = 1.0;
             _gameFaces[i].RenderTransform = Transform.Identity;
             _gameFaces[i].Effect = null;
+            _gameFaces[i].Cursor = Cursors.Hand;
+            _gameFaces[i].Source = new BitmapImage(
+                new Uri($"/assets/images/{faceNames[i]}.png", UriKind.Relative));
         }
     }
 
