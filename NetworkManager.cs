@@ -1,5 +1,6 @@
 using System.IO;
 using System.Net;
+using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Text;
 using System.Text.Json;
@@ -16,6 +17,7 @@ public sealed class NetworkManager : IDisposable
     private static readonly TimeSpan _connectTimeout = TimeSpan.FromSeconds(15);
     private const int DiscoveryPort = 5001;
     private const string BeaconPrefix = "GUESSWHO";
+    private const string MulticastGroup = "239.255.77.77";
 
     private readonly AppConfig _config;
     private readonly JsonSerializerOptions _serializerOptions = new(JsonSerializerDefaults.Web);
@@ -45,6 +47,8 @@ public sealed class NetworkManager : IDisposable
     /// <returns>Task reprezentujący operację asynchroniczną.</returns>
     public async Task StartAsync(CancellationToken cancellationToken = default)
     {
+        FirewallHelper.EnsureRulesForPorts(_config.Port, DiscoveryPort);
+
         if (_config.Role == AppRole.Host)
         {
             await StartAsHostAsync(cancellationToken);
@@ -69,15 +73,17 @@ public sealed class NetworkManager : IDisposable
 
         _listener = new TcpListener(IPAddress.Any, _config.Port);
         _listener.Start();
+        AppLogger.Log($"Host nasłuchuje na porcie {_config.Port}...");
         ConnectionStatusChanged?.Invoke($"Waiting for client on port {_config.Port}...");
         _client = await _listener.AcceptTcpClientAsync(cancellationToken);
+        AppLogger.Log("Klient połączony.");
         ConnectionStatusChanged?.Invoke("Client connected.");
 
         StopBroadcasting();
     }
 
     /// <summary>
-    /// Uruchamia klienta - próbuje wykryć hosta przez UDP, następnie łączy się przez TCP.
+    /// Uruchamia klienta - próbuje wykryć hosta przez UDP broadcast i multicast, następnie łączy się przez TCP.
     /// </summary>
     /// <param name="cancellationToken">Token anulowania operacji.</param>
     /// <returns>Task reprezentujący operację asynchroniczną.</returns>
@@ -86,14 +92,21 @@ public sealed class NetworkManager : IDisposable
         string hostIp = _config.HostIp;
         int port = _config.Port;
 
+        AppLogger.Log("Szukanie hosta (broadcast + multicast)...");
         var discovered = await DiscoverHostAsync(TimeSpan.FromSeconds(15), cancellationToken);
         if (discovered is not null)
         {
             hostIp = discovered.Value.HostIp;
             port = discovered.Value.Port;
+            AppLogger.Log($"Wykryto hosta: {hostIp}:{port}");
+        }
+        else
+        {
+            AppLogger.Log($"Nie wykryto hosta automatycznie. Używam config: {hostIp}:{port}");
         }
 
         _client = new TcpClient();
+        AppLogger.Log($"Łączenie z {hostIp}:{port}...");
         ConnectionStatusChanged?.Invoke($"Connecting to {hostIp}:{port}...");
 
         try
@@ -102,9 +115,11 @@ public sealed class NetworkManager : IDisposable
         }
         catch (Exception ex) when (!IsLoopbackHost(hostIp) && IsConnectFailure(ex, cancellationToken))
         {
+            AppLogger.Log($"Połączenie z {hostIp}:{port} nie powiodło się. Próbuję loopback...");
             await RetryConnectionToLoopbackAsync(port, cancellationToken);
         }
 
+        AppLogger.Log("Połączono z hostem.");
         ConnectionStatusChanged?.Invoke("Connected to host.");
     }
 
@@ -163,7 +178,7 @@ public sealed class NetworkManager : IDisposable
     }
 
     /// <summary>
-    /// Pętla rozgłaszająca beacon UDP co sekundę, informująca klientów o dostępności hosta.
+    /// Pętla rozgłaszająca beacon UDP co sekundę przez broadcast, multicast oraz adresy podsieci.
     /// </summary>
     /// <param name="gamePort">Port gry TCP do rozgłaszania.</param>
     /// <param name="ct">Token anulowania pętli.</param>
@@ -174,11 +189,32 @@ public sealed class NetworkManager : IDisposable
         {
             using var udp = new UdpClient { EnableBroadcast = true };
             byte[] data = Encoding.UTF8.GetBytes($"{BeaconPrefix}:{gamePort}");
-            var endpoint = new IPEndPoint(IPAddress.Broadcast, DiscoveryPort);
+            var broadcastEndpoint = new IPEndPoint(IPAddress.Broadcast, DiscoveryPort);
+            var multicastEndpoint = new IPEndPoint(IPAddress.Parse(MulticastGroup), DiscoveryPort);
+            List<IPAddress> subnetBroadcasts = GetSubnetBroadcastAddresses();
+
+            AppLogger.Log($"Beacon: broadcast + multicast ({MulticastGroup}) + {subnetBroadcasts.Count} podsieci");
 
             while (!ct.IsCancellationRequested)
             {
-                await udp.SendAsync(data, data.Length, endpoint);
+                await udp.SendAsync(data, data.Length, broadcastEndpoint);
+
+                foreach (IPAddress subnetBroadcast in subnetBroadcasts)
+                {
+                    try
+                    {
+                        var ep = new IPEndPoint(subnetBroadcast, DiscoveryPort);
+                        await udp.SendAsync(data, data.Length, ep);
+                    }
+                    catch { }
+                }
+
+                try
+                {
+                    await udp.SendAsync(data, data.Length, multicastEndpoint);
+                }
+                catch { }
+
                 await Task.Delay(1000, ct);
             }
         }
@@ -211,15 +247,74 @@ public sealed class NetworkManager : IDisposable
     }
 
     /// <summary>
-    /// Tworzy klienta UDP do wykrywania hostów nasłuchującego na porcie discovery.
+    /// Tworzy klienta UDP do wykrywania hostów przez broadcast i multicast.
     /// </summary>
-    /// <returns>Skonfigurowany UdpClient.</returns>
+    /// <returns>Skonfigurowany UdpClient z dołączoną grupą multicast.</returns>
     private static UdpClient CreateDiscoveryUdpClient()
     {
         var udp = new UdpClient();
         udp.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
         udp.Client.Bind(new IPEndPoint(IPAddress.Any, DiscoveryPort));
+
+        try
+        {
+            IPAddress multicastAddr = IPAddress.Parse(MulticastGroup);
+            foreach (NetworkInterface ni in NetworkInterface.GetAllNetworkInterfaces())
+            {
+                if (ni.OperationalStatus != OperationalStatus.Up)
+                    continue;
+
+                foreach (UnicastIPAddressInformation addr in ni.GetIPProperties().UnicastAddresses)
+                {
+                    if (addr.Address.AddressFamily == AddressFamily.InterNetwork)
+                    {
+                        try { udp.JoinMulticastGroup(multicastAddr, addr.Address); }
+                        catch { }
+                    }
+                }
+            }
+            AppLogger.Log("Dołączono do grupy multicast na dostępnych interfejsach.");
+        }
+        catch
+        {
+            AppLogger.Log("Nie udało się dołączyć do grupy multicast.");
+        }
+
         return udp;
+    }
+
+    /// <summary>
+    /// Pobiera adresy broadcast dla wszystkich aktywnych podsieci IPv4 (pomijając loopback).
+    /// </summary>
+    /// <returns>Lista adresów broadcast podsieci.</returns>
+    private static List<IPAddress> GetSubnetBroadcastAddresses()
+    {
+        var result = new List<IPAddress>();
+        try
+        {
+            foreach (NetworkInterface ni in NetworkInterface.GetAllNetworkInterfaces())
+            {
+                if (ni.OperationalStatus != OperationalStatus.Up)
+                    continue;
+
+                foreach (UnicastIPAddressInformation unicast in ni.GetIPProperties().UnicastAddresses)
+                {
+                    if (unicast.Address.AddressFamily == AddressFamily.InterNetwork
+                        && !IPAddress.IsLoopback(unicast.Address))
+                    {
+                        byte[] ip = unicast.Address.GetAddressBytes();
+                        byte[] mask = unicast.IPv4Mask.GetAddressBytes();
+                        byte[] broadcast = new byte[4];
+                        for (int i = 0; i < 4; i++)
+                            broadcast[i] = (byte)(ip[i] | ~mask[i]);
+
+                        result.Add(new IPAddress(broadcast));
+                    }
+                }
+            }
+        }
+        catch { }
+        return result;
     }
 
     /// <summary>

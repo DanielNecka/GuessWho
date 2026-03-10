@@ -1,4 +1,6 @@
-﻿using System.Text.Json;
+﻿using System.Net;
+using System.Net.Sockets;
+using System.Text.Json;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -20,6 +22,7 @@ public partial class MainWindow : Window
     private NetworkManager? _networkManager;
     private AppConfig? _config;
     private CancellationTokenSource? _connectCts;
+    private LogWindow? _logWindow;
 
     private int _selectedCharacterIndex = -1;
     private bool _localReady;
@@ -55,6 +58,26 @@ public partial class MainWindow : Window
             gf0, gf1, gf2, gf3, gf4, gf5, gf6, gf7,
             gf8, gf9, gf10, gf11, gf12, gf13, gf14
         ];
+
+        _logWindow = new LogWindow();
+        AppLogger.Log("Aplikacja GuessWho uruchomiona.");
+        LogLocalNetworkInfo();
+    }
+
+    /// <summary>
+    /// Loguje informacje o lokalnych adresach sieciowych.
+    /// </summary>
+    private static void LogLocalNetworkInfo()
+    {
+        try
+        {
+            var host = Dns.GetHostEntry(Dns.GetHostName());
+            var ips = host.AddressList
+                .Where(a => a.AddressFamily == AddressFamily.InterNetwork)
+                .Select(a => a.ToString());
+            AppLogger.Log($"Lokalne adresy IP: {string.Join(", ", ips)}");
+        }
+        catch { }
     }
 
     /// <summary>
@@ -123,16 +146,19 @@ public partial class MainWindow : Window
         _networkManager = new NetworkManager(_config);
         _networkManager.MessageReceived += OnMessageReceived;
         _connectCts = new CancellationTokenSource();
+        AppLogger.Log($"Łączenie jako {role}...");
 
         try
         {
             await _networkManager.StartAsync(_connectCts.Token);
+            AppLogger.Log("Połączenie nawiazane. Ekran wyboru postaci.");
             ResetSelectScreen();
             ShowScreen("select");
         }
         catch (OperationCanceledException) { }
         catch (Exception ex)
         {
+            AppLogger.Log($"Błąd połączenia: {ex.Message}");
             ShowConnectionError(ex);
         }
     }
@@ -274,6 +300,7 @@ public partial class MainWindow : Window
     {
         _localReady = true;
         string selectedFaceId = _gameManager.Faces[_selectedCharacterIndex].Id;
+        AppLogger.Log($"Wybrano postać: {selectedFaceId}");
 
         if (_config!.Role == AppRole.Host)
             _hostFaceId = selectedFaceId;
@@ -335,6 +362,7 @@ public partial class MainWindow : Window
     /// <param name="enemyFaceId">ID postaci przeciwnika.</param>
     private void StartGame(string myFaceId, string enemyFaceId)
     {
+        AppLogger.Log($"Gra rozpoczęta! Moja postać: {myFaceId}, przeciwnik: {enemyFaceId}");
         InitializeGameState(myFaceId, enemyFaceId);
         ResetGameFaces();
         SetPlayerFaceImage();
@@ -518,9 +546,12 @@ public partial class MainWindow : Window
         if (_networkManager is null || faceIndex < 0 || faceIndex >= _gameManager.Faces.Count)
             return;
 
+        string guessedId = _gameManager.Faces[faceIndex].Id;
+        AppLogger.Log($"Zgaduję postać: {guessedId}");
+
         await _networkManager.SendAsync(
             MessageTypes.FinalGuess,
-            new FinalGuessPayload { GuessedFaceId = _gameManager.Faces[faceIndex].Id });
+            new FinalGuessPayload { GuessedFaceId = guessedId });
 
         _isMyTurn = false;
         UpdateTurnBanner();
@@ -610,6 +641,7 @@ public partial class MainWindow : Window
             return;
 
         bool correct = payload.GuessedFaceId.Equals(_myFaceId, StringComparison.OrdinalIgnoreCase);
+        AppLogger.Log($"Przeciwnik zgaduje: {payload.GuessedFaceId} — {(correct ? "TRAFIONY" : "PUDŁO")}");
 
         await _networkManager.SendAsync(
             MessageTypes.GuessResult,
@@ -639,6 +671,10 @@ public partial class MainWindow : Window
         GuessResultPayload? payload = message.Payload.Deserialize<GuessResultPayload>(_jsonOptions);
         if (payload is null)
             return;
+
+        AppLogger.Log(payload.Correct
+            ? "Wynik: WYGRANA!"
+            : $"Wynik: pudło ({payload.GuessedFaceId})");
 
         if (payload.Correct)
         {
@@ -673,6 +709,7 @@ public partial class MainWindow : Window
     /// </summary>
     private void HandleRematch()
     {
+        AppLogger.Log("Przeciwnik chce rewanż.");
         ResetSelectScreen();
         ShowScreen("select");
     }
@@ -748,6 +785,7 @@ public partial class MainWindow : Window
     /// <param name="won">True jeśli gracz wygrał, false jeśli przegrał.</param>
     private void ShowEndScreen(bool won)
     {
+        AppLogger.Log(won ? "KONIEC — Wygrałeś!" : "KONIEC — Przegrałeś.");
         _gameStarted = false;
         SetEndBanner(won);
         SetEnemyFaceImage();
@@ -788,6 +826,7 @@ public partial class MainWindow : Window
         if (_networkManager is null)
             return;
 
+        AppLogger.Log("Wysłano prośbę o rewanż.");
         await _networkManager.SendAsync(MessageTypes.Rematch, new RematchPayload());
         ResetSelectScreen();
         ShowScreen("select");
@@ -898,8 +937,23 @@ public partial class MainWindow : Window
         }
     }
 
+    private void Window_KeyDown(object sender, KeyEventArgs e)
+    {
+        if (e.Key == Key.F12 && _logWindow is not null)
+        {
+            if (_logWindow.IsVisible)
+                _logWindow.Hide();
+            else
+            {
+                _logWindow.Show();
+                Activate();
+            }
+        }
+    }
+
     protected override void OnClosed(EventArgs e)
     {
+        _logWindow?.Close();
         _connectCts?.Cancel();
         _networkManager?.Dispose();
         base.OnClosed(e);

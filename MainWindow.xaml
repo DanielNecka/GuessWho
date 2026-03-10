@@ -10,7 +10,8 @@
         Height="1080"
         WindowStyle="None"
         ResizeMode="NoResize"
-        WindowState="Maximized">
+        WindowState="Maximized"
+        KeyDown="Window_KeyDown">
 
     <Window.Background>
         <ImageBrush ImageSource="/assets/bg.png" Stretch="UniformToFill"/>

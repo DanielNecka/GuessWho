@@ -24,6 +24,7 @@
     <None Remove="assets\btns\play.png" />
     <None Remove="assets\btns\playAgain.png" />
     <None Remove="assets\btns\select.png" />
+    <None Remove="assets\ico.png" />
     <None Remove="assets\images\AngelikaZelek.png" />
     <None Remove="assets\images\AnnaGrabowska.png" />
     <None Remove="assets\images\AnnaWozniak.png" />
@@ -46,6 +47,7 @@
     <Resource Include="assets\baners\enemyTurn.png" />
     <Resource Include="assets\baners\playerCharacter.png" />
     <Resource Include="assets\baners\playerTurn.png" />
+    <Resource Include="assets\ico.png" />
     <Resource Include="assets\images\AngelikaZelek.png" />
     <Resource Include="assets\images\AnnaGrabowska.png" />
     <Resource Include="assets\images\AnnaWozniak.png" />

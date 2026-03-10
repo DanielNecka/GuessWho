@@ -1,0 +1,21 @@
+<Window x:Class="GuessWho.LogWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="GuessWho — Logi (F12 ukryj/pokaż)"
+        Width="620" Height="340"
+        WindowStartupLocation="Manual"
+        Left="10" Top="10"
+        Topmost="True"
+        ShowActivated="False"
+        ResizeMode="CanResizeWithGrip"
+        Background="#1E1E2E">
+    <Grid>
+        <ListBox x:Name="logList"
+                 Background="#1E1E2E"
+                 Foreground="#CDD6F4"
+                 BorderThickness="0"
+                 FontFamily="Consolas"
+                 FontSize="12"
+                 ScrollViewer.HorizontalScrollBarVisibility="Auto"/>
+    </Grid>
+</Window>
