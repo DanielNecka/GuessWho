@@ -56,8 +56,10 @@
             </Grid>
 
             <Grid x:Name="gameScreen" Visibility="Collapsed">
-                <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,-750,0,0" Orientation="Horizontal">
-                    <Image Source="/assets/baners/playerCharacter.png" Width="290"/>
+                <StackPanel HorizontalAlignment="left" VerticalAlignment="Center" Margin="20,-750,0,0" Orientation="Horizontal">
+                    <Image x:Name="turnBanner" Source="/assets/baners/playerTurn.png" Width="290"/>
+
+                    <Image Source="/assets/baners/playerCharacter.png" Width="290" Margin="1150,0,0,0"/>
 
                     <Image x:Name="playerFace" Source="/assets/images/frame.png" Width="228" Height="193.333340358099"/>
                 </StackPanel>
@@ -84,8 +86,8 @@
                 </StackPanel>
 
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,700,0,0" Orientation="Horizontal">
-                    <Image Source="/assets/btns/guess.png" Width="290" MouseLeftButtonDown="GuessButton_Click" Cursor="Hand" Style="{StaticResource AnimBtn}"/>
-                    <Image Source="/assets/btns/select.png" Width="290" Margin="50,0,0,0" MouseLeftButtonDown="SelectButton_Click" Cursor="Hand" Style="{StaticResource AnimBtn}"/>
+                    <Image x:Name="guessButton" Source="/assets/btns/guess.png" Width="290" MouseLeftButtonDown="GuessButton_Click" Cursor="Hand" Style="{StaticResource AnimBtn}"/>
+                    <Image x:Name="selectButton" Source="/assets/btns/select.png" Width="290" Margin="50,0,0,0" MouseLeftButtonDown="SelectButton_Click" Cursor="Hand" Style="{StaticResource AnimBtn}"/>
                 </StackPanel>
             </Grid>
 
